@@ -1,0 +1,5 @@
+package com.info.spring.client.shopping;
+
+public class CartClient {
+
+}

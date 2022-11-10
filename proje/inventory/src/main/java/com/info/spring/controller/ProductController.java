@@ -1,0 +1,68 @@
+package com.info.spring.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.info.spring.dto.ProductDto;
+import com.info.spring.entity.Product;
+import com.info.spring.repository.ProductRepository;
+
+@RestController
+@RequestMapping("/inventory")
+public class ProductController {
+	
+	private ProductRepository productRepository;
+	
+	public ProductController(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
+	
+	@GetMapping("/product/{id}")
+	public ProductDto getProduct(@PathVariable("id") long productId) {
+		Optional<Product> optional = productRepository.findById(productId);
+		ProductDto productDto = new ProductDto(
+				optional.get().getProductId(),
+				optional.get().getProductName(),
+				optional.get().getSalesPrice(),
+				optional.get().getCategory().getCategoryName()
+				);
+				
+		if (optional.isPresent()) {
+			return productDto;
+		} else {
+			ResponseEntity.status(HttpStatus.NOT_FOUND).body(productId);
+			
+			return null;
+		}
+	}
+	
+	@GetMapping("/products/{category_id}")
+	public List<Product> getProductsByCategoryId(@PathVariable("category_id") long categoryId) {
+		List<Product> categoryProducts = productRepository.findProductsByCategoryId(categoryId);
+		
+		return categoryProducts;
+	}
+	
+	@GetMapping("/product/all")
+	public Iterable<ProductDto> getAllProducts() {
+		Iterable<Product> products =  productRepository.findAll();
+		List<ProductDto> productDtos = new ArrayList<>();
+		
+		for(Product product : products) {
+			ProductDto productDto = new ProductDto(
+					product.getProductId(), product.getProductName(), product.getSalesPrice(), product.getCategory().getCategoryName());
+			
+			productDtos.add(productDto);
+		}
+		
+		return productDtos;
+	}
+}

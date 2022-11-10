@@ -1,0 +1,16 @@
+package com.info.spring.service;
+
+import org.springframework.stereotype.Service;
+
+import com.info.spring.repository.CartRepository;
+
+@Service
+public class CartService {
+	
+	private CartRepository cartRepository;
+	
+	public CartService(CartRepository cartRepository) {
+		this.cartRepository = cartRepository;
+	}
+	
+}

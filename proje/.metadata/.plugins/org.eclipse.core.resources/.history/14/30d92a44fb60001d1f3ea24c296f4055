@@ -1,0 +1,23 @@
+package com.info.spring.client.inventory;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+
+import com.info.spring.dto.CartProductDto;
+import com.info.spring.dto.CategoryDto;
+
+@Controller
+public class CategoryClient {
+	
+	@ResponseBody
+	public List<CategoryDto> getCategories() {
+		String url = "http://localhost:8081/inventory/category/all";
+		RestTemplate restTemplate = new RestTemplate();
+		List<CategoryDto> categoryDtos = restTemplate.getForObject(url, List.class);
+		
+		return categoryDtos;
+	}
+}

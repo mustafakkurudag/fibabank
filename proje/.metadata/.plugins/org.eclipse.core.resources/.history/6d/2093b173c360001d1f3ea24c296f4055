@@ -1,0 +1,20 @@
+package com.info.spring.client;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
+
+import com.info.spring.dto.CartProductDto;
+
+@Controller
+public class ProductClient {
+	
+	public List<CartProductDto> getProducts() {
+		String url = "http://localhost:8081/inventory/product/all";
+		RestTemplate restTemplate = new RestTemplate();
+		List<CartProductDto> productDtos = restTemplate.getForObject(url, List.class);
+		
+		return productDtos;
+	}
+}

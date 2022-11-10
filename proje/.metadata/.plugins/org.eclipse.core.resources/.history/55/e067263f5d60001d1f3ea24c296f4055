@@ -1,0 +1,10 @@
+package com.info.spring.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.info.spring.entity.Cart;
+import com.info.spring.entity.CartProduct;
+
+public interface CartProductRepository extends CrudRepository<CartProduct, Long> {
+
+}

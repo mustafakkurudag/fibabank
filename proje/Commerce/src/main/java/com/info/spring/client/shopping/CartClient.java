@@ -1,0 +1,38 @@
+package com.info.spring.client.shopping;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
+
+import com.info.spring.dto.CartProductDto;
+
+@Controller
+public class CartClient {
+	
+	public long createCart() {
+		String url = "http://localhost:8082/shopping/cart/create";
+		RestTemplate restTemplate = new RestTemplate();
+		long cartId = restTemplate.getForObject(url, Long.class);
+		
+		return cartId;
+	}
+	
+	public CartProductDto addProductToCart() {
+		String url = "http://localhost:8082/shopping/cart/add";
+		RestTemplate restTemplate = new RestTemplate();
+		CartProductDto cartProductDto = restTemplate.getForObject(url, CartProductDto.class);
+		
+		return cartProductDto;
+	}
+	
+	public void checkout(long cartId) {
+		String url = "http://localhost:8082/shopping/checkout/" + cartId;
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getForEntity(url, Void.class);
+	}
+	
+	public void deleteProductInCart(long cartId, long cartProductId) {
+		String url = "http://localhost:8082/shopping/cart/remove/" + cartId + "/" + cartProductId;
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getForEntity(url, Void.class);
+	}
+}

@@ -1,0 +1,34 @@
+package com.info.spring.entity;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Cart {
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long cartId;
+	private String customerName;
+	private double totalAmount;
+	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<CartProduct> cartProducts;
+	private int cartStatus;
+	
+	public Cart() {}
+
+	public Cart(long cartId, String customerName, double totalAmount, int cartStatus) {
+		this.cartId = cartId;
+		this.customerName = customerName;
+		this.totalAmount = totalAmount;
+		this.cartStatus = cartStatus;
+	}
+	
+	
+}

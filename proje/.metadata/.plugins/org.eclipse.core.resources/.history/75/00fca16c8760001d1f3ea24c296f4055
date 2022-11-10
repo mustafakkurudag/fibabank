@@ -1,0 +1,13 @@
+package com.info.spring.repository;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.info.spring.entity.CartProduct;
+
+public interface CartProductRepository extends CrudRepository<CartProduct, Long> {
+	
+	@Query("SELECT p.sales_price FROM Commerce.Product p, WHERE p.product_id= :productId")
+	double findSalesPriceByProductId(@Param("productId") long product_id);
+}

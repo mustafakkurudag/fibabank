@@ -1,0 +1,13 @@
+package com.info.spring.client;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class ProductClient {
+	
+	public List<String> getProducts() {
+		String url = "http://localhost:8081/inventory/"
+	}
+}

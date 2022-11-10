@@ -1,0 +1,44 @@
+package com.info.spring.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.info.spring.client.CategoryClient;
+import com.info.spring.client.ProductClient;
+import com.info.spring.dto.CartProductDto;
+import com.info.spring.dto.CategoryDto;
+
+@Controller
+@RequestMapping("/commerce")
+public class ProductController {
+	
+	private ProductClient productClient;
+	private CategoryClient categoryClient;
+	
+	public ProductController(ProductClient productClient, CategoryClient categoryClient) {
+		this.productClient = productClient;
+		this.categoryClient = categoryClient;
+	}
+	
+	@GetMapping("/inventory/categories")
+	public String showCategories(@ModelAttribute CartProductDto productDto, Model model) {
+		List<CategoryDto> categoryDtos = categoryClient.getCategories();
+		model.addAttribute("categoryDtos", categoryDtos);
+		
+		return "index";
+	}
+	
+	@GetMapping("/inventory/products/{categoryId}")
+	public String showCategoryProducts(@PathVariable("categoryId") Long categoryId, Model model) {
+		List<CartProductDto> cartProductDtos = productClient.getProductsByCategoryId(categoryId);
+		model.addAttribute("categoryProducts", cartProductDtos);
+		
+		return "products";
+	}
+}

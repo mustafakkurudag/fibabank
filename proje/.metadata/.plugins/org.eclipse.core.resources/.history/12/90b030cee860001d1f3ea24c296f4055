@@ -1,0 +1,32 @@
+package com.info.spring.client;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+
+import com.info.spring.dto.CartProductDto;
+
+@Controller
+public class ProductClient {
+	
+	@ResponseBody
+	public List<CartProductDto> getProducts() {
+		String url = "http://localhost:8081/inventory/product/all";
+		RestTemplate restTemplate = new RestTemplate();
+		List<CartProductDto> cartProductDtos = restTemplate.getForObject(url, List.class);
+		
+		return cartProductDtos;
+	}
+	
+	@ResponseBody
+	public List<CartProductDto> getProductsByCategoryId(long categoryId) {
+		String url = "http://localhost:8081/inventory/product/" + categoryId;
+		RestTemplate restTemplate = new RestTemplate();
+		List<CartProductDto> categoryProducts = restTemplate.getForObject(url, List.class);
+		System.out.println(Arrays.asList(categoryProducts));
+		return categoryProducts;
+	}
+}

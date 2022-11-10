@@ -1,0 +1,5 @@
+package com.info.spring.repository;
+
+public interface CartRepository {
+
+}

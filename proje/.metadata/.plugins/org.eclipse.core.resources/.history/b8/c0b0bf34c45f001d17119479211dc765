@@ -1,0 +1,9 @@
+package com.info.spring.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.info.spring.entity.Category;
+
+public interface CategoryRepository extends CrudRepository<Category, Long>{
+
+}

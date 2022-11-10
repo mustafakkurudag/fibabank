@@ -1,0 +1,5 @@
+package com.info.spring.dto;
+
+public class CartDto {
+
+}

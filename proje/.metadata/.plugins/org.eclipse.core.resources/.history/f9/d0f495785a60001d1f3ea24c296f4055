@@ -1,0 +1,5 @@
+package com.info.spring.entity;
+
+public class Cart {
+
+}

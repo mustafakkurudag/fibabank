@@ -1,0 +1,17 @@
+package com.info.spring.client.shopping;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
+
+@Controller
+public class CartClient {
+	
+	public long createCart() {
+		String url = "http://localhost:8082/shopping/cart/create";
+		RestTemplate restTemplate = new RestTemplate();
+		long cartId = restTemplate.getForObject(url, Long.class);
+		
+		return cartId;
+	}
+	
+}
